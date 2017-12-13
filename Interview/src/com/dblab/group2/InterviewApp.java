@@ -238,8 +238,9 @@ public class InterviewApp {
 			lastname = kbd.nextLine();
 			System.out.print("Please enter the availability of the interviewer: ");
 			avail = kbd.nextLine().charAt(0);
-					
-			String stmnt = "INSERT INTO Group2.interviewer(first_name,last_name,availability)" + "values(?,?,?)";
+			
+			String stmnt = "INSERT INTO Group2.interviewer(first_name,last_name,availability) values(?,?,?)";
+			
 			PreparedStatement ps = con.prepareStatement(stmnt);
 			ps.setString(1, firstname);
 			ps.setString(2, lastname);
@@ -339,34 +340,39 @@ public class InterviewApp {
 	}
 	
 	public void addNewPanel() throws SQLException {
-		int sched;
-		int interviewer;
-		int rating;
-		String choice; 
+		System.out.print("Enter the schedule ID : ");
+		Scanner s = new Scanner(System.in);
+		int schedID = s.nextInt();
+		String answer = "Y";
+		String query = "";
 		
-		do{
-			System.out.print("Please enter the sched id of the interview: ");
-			sched = kbd.nextInt();
-			System.out.print("Please enter the interview id of the interviewer: ");
-			interviewer = kbd.nextInt();
-			System.out.print("Please enter the score from the interviewer: ");
-			rating = kbd.nextInt();
+		while(answer.equalsIgnoreCase("Y")){
+			System.out.print("Enter Interviewer ID : ");
+			int id = s.nextInt();
 			
-					
-			String stmnt = "INSERT INTO Group2.panel(schedid, interviewid, score)" + "values (?, ?, ?)";
-			PreparedStatement ps = con.prepareStatement(stmnt);
-			ps.setString(1, String.valueOf(sched));
-			ps.setString(2, String.valueOf(interviewer));
-			ps.setString(3, String.valueOf(rating));
-			ps.executeUpdate();
-					
-			System.out.println( interviewer + " was successfully added as a panel member.");
-			System.out.print("Would you like to add another panel member? <y/*> ");
-			choice = kbd.nextLine().toLowerCase();
-			if((!choice.equals("y")) || (!choice.equals("n"))){
-				System.out.println("Enter y or n only");
+			if(interviewerExits(id)){
+				query = "INSERT INTO `Group2`.`panel` (`schedid`, `interviewerid`) VALUES (?, ?)";
+				PreparedStatement ps = con.prepareStatement(query);
+				ps.setInt(1, schedID);
+				ps.setInt(2, id);
+				ps.execute();
+			}else{
+				System.out.println("can't find interviewer on database");
 			}
-		}while(choice.equals("y") || (!choice.equals("y")) || (!choice.equals("n")));
+			
+			System.out.print("Add another ? <y/*> ");
+			answer = s.next();
+			
+		}
+		
+	}
+	
+	public boolean interviewerExits(int id) throws SQLException{
+		
+		String query = "select * from interviewer where interviewerid = " + id;
+		
+		return sqlStmnt.executeQuery(query).next();
+		
 	}
 	
 	public void editInterviewerInfo() throws SQLException{
