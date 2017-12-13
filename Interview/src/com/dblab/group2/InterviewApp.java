@@ -19,8 +19,10 @@ public class InterviewApp {
 	
 	private Connection con;
 	private Statement sqlStmnt;
+	private PreparedStatement ps; 
 	
 	private static InterviewApp app;
+	private static Scanner kbd = new Scanner(System.in);
 	
 	public InterviewApp(){
 		
@@ -196,8 +198,14 @@ public class InterviewApp {
 		
 	}
 	
-	public void showInterviewSchedules() {
+	public void showInterviewSchedules() throws SQLException {
+		ResultSet res = sqlStmnt.executeQuery("SELECT * FROM Group2.interviewsched");
+		System.out.printf("%5s	%-20s%-20s%-20s%n","Sched ID","Time", "Date", "Applicant ID");
 		
+		while(res.next()){
+			System.out.printf("%1d	%-25s%-25s%-28d%n",res.getInt(1),res.getString(2),res.getString(3),
+					res.getInt(4));
+		}
 	}
 	
 	public void showApplicants() throws SQLException {
@@ -219,8 +227,7 @@ public class InterviewApp {
 		String lastname;
 		char avail;
 		String choice; 
-		
-		Scanner kbd = new Scanner(System.in);		
+	
 		do{
 			System.out.print("Please enter the first name of the interviewer: ");
 			firstname = kbd.nextLine();
@@ -280,17 +287,15 @@ public class InterviewApp {
 	
 	public void addNewApplicant() throws SQLException {
 		try {
-			
-			Scanner s = new Scanner(System.in);
 			String choice;
 			
 			do {
 				System.out.print("Please enter the first name of the applicant: ");
-				String fName = s.nextLine();
+				String fName = kbd.nextLine();
 				System.out.print("Please enter the last name of the applicant: ");
-				String lName = s.nextLine();
+				String lName = kbd.nextLine();
 				System.out.print("Please enter the URL of the resume of the applicant: ");
-				String resu = s.nextLine();
+				String resu = kbd.nextLine();
 				
 				
 				String query = " insert into Group2.applicant (firstname, lastname, resume)"
@@ -311,7 +316,7 @@ public class InterviewApp {
 			    
 			    System.out.print("Please enter the schedule for the new Applicant : ");
 			    //TODO verify
-			    int schedId = s.nextInt();
+			    int schedId = kbd.nextInt();
 			    
 			    query = "update Group2.interviewsched set applicantid = ? where schedid = ?";
 			    
@@ -322,7 +327,7 @@ public class InterviewApp {
 			    ps.execute();
 			    
 			    System.out.print("Would you like to add another applicant? <y/*> ");
-			    choice = s.next();
+			    choice = kbd.next();
 			}while(choice.equals("y") || choice.equals("Y"));
 		}
 		catch (Exception e){
@@ -352,15 +357,26 @@ public class InterviewApp {
 	}
 	
 	public void removeInterviewSchedule() {
-		
+		try {
+			System.out.print("Please enter the ID of the interview schedule you want to remove: ");
+			int id = kbd.nextInt();
+				
+			String query = "delete from Group2.interviewsched where schedid = ?";
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, id);  
+			ps.execute();
+				
+		}	
+		catch (Exception e){
+		      System.err.println("Got an exception!");
+		      System.err.println(e.getMessage());
+		}
 	}
 	
 	public void removeApplicantInfo() {
-		try {
-			Scanner s = new Scanner(System.in);
-			
+		try {		
 			System.out.print("Please enter the ID of the applicant you want to remove: ");
-			int id = s.nextInt();
+			int id = kbd.nextInt();
 				
 			String query = "delete from applicant where applicantid = ?";
 			PreparedStatement ps = con.prepareStatement(query);
