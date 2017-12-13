@@ -68,18 +68,20 @@ public class InterviewApp {
 		System.out.println("<1> Show Interviewers");
 		System.out.println("<2> Show Interview Schedules");
 		System.out.println("<3> Show Applicants");
+		System.out.println("<4> Show Panel");
 		System.out.println("------Create------");
-		System.out.println("<4> Add new Interviewer");
-		System.out.println("<5> Add new Interview Schedule");
-		System.out.println("<6> Add new Applicant");
+		System.out.println("<5> Add new Interviewer");
+		System.out.println("<6> Add new Interview Schedule");
+		System.out.println("<7> Add new Applicant");
+		System.out.println("<8> Add new Panel");
 		System.out.println("------Update------");
-		System.out.println("<7> Edit Interviewer Info");
-		System.out.println("<8> Edit Interview Schedule");
-		System.out.println("<9> Edit Applicant Info");
+		System.out.println("<9> Edit Interviewer Info");
+		System.out.println("<10> Edit Interview Schedule");
+		System.out.println("<11> Edit Applicant Info");
 		System.out.println("------Delete-----");
-		System.out.println("<10> Remove Interviewer");
-		System.out.println("<11> Remove Interview Schedule");
-		System.out.println("<12> Remove Applicant");
+		System.out.println("<12> Remove Interviewer");
+		System.out.println("<13> Remove Interview Schedule");
+		System.out.println("<14> Remove Applicant");
 		System.out.println("<0> Exit ");
 	}
 	
@@ -111,36 +113,42 @@ public class InterviewApp {
 				app.showInterviewers();
 				break;
 			case 2:
-				//TODO add showscheds
+				app.showInterviewSchedules();
 				break;
 			case 3:
 				app.showApplicants();
 				break;
 			case 4:
-				app.addNewInterviewer();
+				app.showPanel();
 				break;
 			case 5:
-				app.addNewInterviewSchedule();
+				app.addNewInterviewer();
 				break;
 			case 6:
-				app.addNewApplicant();
+				app.addNewInterviewSchedule();
 				break;
 			case 7:
-				app.editInterviewerInfo();
+				app.addNewApplicant();
 				break;
 			case 8:
-				app.editInterviewSchedule();
+				app.addNewPanel();
 				break;
 			case 9:
-				app.editApplicatInfo();
+				app.editInterviewerInfo();
 				break;
 			case 10:
-				app.removeInterviewer();
+				app.editInterviewSchedule();
 				break;
 			case 11:
-				app.removeInterviewSchedule();
+				app.editApplicatInfo();
 				break;
 			case 12:
+				app.removeInterviewer();
+				break;
+			case 13:
+				app.removeInterviewSchedule();
+				break;
+			case 14:
 				app.removeApplicantInfo();
 				break;
 			default:
@@ -200,6 +208,10 @@ public class InterviewApp {
 			System.out.printf("%5d	%-20s%-20s%-20s%n",res.getInt(1),res.getString(2),res.getString(3),
 					res.getString(4));
 		}
+	}
+	
+	public void showPanel() {
+		
 	}
 	
 	public void addNewInterviewer() throws SQLException{
@@ -317,6 +329,10 @@ public class InterviewApp {
 	      System.err.println("Got an exception!");
 	      System.err.println(e.getMessage());
 	    }
+	}
+	
+	public void addNewPanel() {
+		
 	}
 	
 	public void editInterviewerInfo() {
