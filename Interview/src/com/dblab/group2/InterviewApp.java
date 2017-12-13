@@ -19,8 +19,10 @@ public class InterviewApp {
 	
 	private Connection con;
 	private Statement sqlStmnt;
+	private PreparedStatement ps; 
 	
 	private static InterviewApp app;
+	private static Scanner kbd = new Scanner(System.in);
 	
 	public InterviewApp(){
 		
@@ -207,8 +209,7 @@ public class InterviewApp {
 		String lastname;
 		char avail;
 		String choice; 
-		
-		Scanner kbd = new Scanner(System.in);		
+	
 		do{
 			System.out.print("Please enter the first name of the interviewer: ");
 			firstname = kbd.nextLine();
@@ -336,7 +337,20 @@ public class InterviewApp {
 	}
 	
 	public void removeInterviewSchedule() {
-		
+		try {
+			System.out.print("Please enter the ID of the interview schedule you want to remove: ");
+			int id = kbd.nextInt();
+				
+			String query = "delete from Group2.interviewsched where schedid = ?";
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, id);  
+			ps.execute();
+				
+		}	
+		catch (Exception e){
+		      System.err.println("Got an exception!");
+		      System.err.println(e.getMessage());
+		}
 	}
 	
 	public void removeApplicantInfo() {
