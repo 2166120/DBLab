@@ -202,8 +202,35 @@ public class InterviewApp {
 		}
 	}
 	
-	public void addNewInterviewer() {
+	public void addNewInterviewer() throws SQLException{
+		String firstname;
+		String lastname;
+		char avail;
+		String choice; 
 		
+		Scanner kbd = new Scanner(System.in);		
+		do{
+			System.out.print("Please enter the first name of the interviewer: ");
+			firstname = kbd.nextLine();
+			System.out.print("Please enter the last name of the interviewer: ");
+			lastname = kbd.nextLine();
+			System.out.print("Please enter the availability of the interviewer: ");
+			avail = kbd.nextLine().charAt(0);
+					
+			String stmnt = "INSERT INTO Group2.interviewer(first_name,last_name,availability)";
+			PreparedStatement ps = con.prepareStatement(stmnt);
+			ps.setString(2, firstname);
+			ps.setString(3, lastname);
+			ps.setString(4, String.valueOf(avail));
+			ps.executeUpdate();
+					
+			System.out.println( firstname + " " + lastname + " was successfully added as an interviewer.");
+			System.out.print("Would you like to add another applicant? <y/*> ");
+			choice = kbd.nextLine().toLowerCase();
+			if((!choice.equals("y")) || (!choice.equals("n"))){
+				System.out.println("Enter y or n only");
+			}
+		}while(choice.equals("y") || (!choice.equals("y")) || (!choice.equals("n")));
 	}
 	
 	public void addNewInterviewSchedule() {
