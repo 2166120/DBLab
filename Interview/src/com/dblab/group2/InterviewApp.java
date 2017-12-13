@@ -222,8 +222,23 @@ public class InterviewApp {
 		}
 	}
 	
-	public void showPanel() {
+	public void showPanel() throws SQLException {
+		System.out.print("Enter the Schedule ID of the panel you want to view: ");
+		int id = kbd.nextInt();
+		ResultSet res = sqlStmnt.executeQuery(
+				"SELECT interviewerid, first_name, last_name, time, "
+				+ "date FROM panel NATURAL JOIN interviewer NATURAL JOIN interviewsched WHERE schedid = "+ id + ";");
 		
+		System.out.println("Showing the panel for Schedule ID "+id+":");
+		res.next();
+		System.out.println("Time: "+res.getString(4));
+		System.out.println("Date: "+res.getString(5));
+		res.previous();
+		System.out.printf("%15s  %-20s%-20s%n", "Interviewer ID", "First Name", "Last Name");
+		
+		while (res.next()) {
+			System.out.printf("%15s  %-20s%-20s%n", res.getInt(1), res.getString(2), res.getString(3));
+		}
 	}
 	
 	public void addNewInterviewer() throws SQLException{
