@@ -173,12 +173,11 @@ public class InterviewApp {
 		}
 		
 		System.out.print("Would you like to show an interviewer's schedule ? <y/*> ");
-		Scanner s = new Scanner(System.in);
-		String answer = s.next();
+		String answer = kbd.next();
 		
 		while( answer.equals("y") || answer.equals("Y") ){
 			System.out.print("Enter the interviewer ID : ");
-			int id = s.nextInt();
+			int id = kbd.nextInt();
 			
 			res = sqlStmnt.executeQuery("SELECT `first_name`,`last_name`,`time`,`date` "
 					+ "FROM interviewer NATURAL JOIN panel NATURAL JOIN interviewsched WHERE interviewerid=" 
@@ -193,7 +192,7 @@ public class InterviewApp {
 			}
 			
 			System.out.print("Display another? <y/*> ");
-			answer = s.next();
+			answer = kbd.next();
 		}
 		
 	}
@@ -235,8 +234,9 @@ public class InterviewApp {
 			lastname = kbd.nextLine();
 			System.out.print("Please enter the availability of the interviewer: ");
 			avail = kbd.nextLine().charAt(0);
-					
+			
 			String stmnt = "INSERT INTO Group2.interviewer(first_name,last_name,availability) values(?,?,?)";
+			
 			PreparedStatement ps = con.prepareStatement(stmnt);
 			ps.setString(1, firstname);
 			ps.setString(2, lastname);
@@ -254,14 +254,13 @@ public class InterviewApp {
 	
 	public void addNewInterviewSchedule() {
 		try {
-			Scanner s = new Scanner(System.in);
 			String choice;
 			
 			do {
 				System.out.print("Please enter the time of interview (ex: 8:00-9:00): ");
-				String time = s.nextLine();
+				String time = kbd.nextLine();
 				System.out.print("Please enter the date of interview (ex: 2017-12-13): ");
-				String date = s.nextLine();
+				String date = kbd.nextLine();
 				
 				
 				String query = " insert into Group2.interviewsched (time,date)"
@@ -274,7 +273,7 @@ public class InterviewApp {
 			    ps.execute();
 			    
 			    System.out.print("Would you like to add another schedule? <y/*> ");
-			    choice = s.nextLine();
+			    choice = kbd.nextLine();
 			}while(choice.equals("y") || choice.equals("Y"));
 		}
 		catch (Exception e){
@@ -337,7 +336,6 @@ public class InterviewApp {
 	}
 	
 	public void addNewPanel() throws SQLException {
-		
 		System.out.print("Enter the schedule ID : ");
 		Scanner s = new Scanner(System.in);
 		int schedID = s.nextInt();
@@ -370,6 +368,7 @@ public class InterviewApp {
 		String query = "select * from interviewer where interviewerid = " + id;
 		
 		return sqlStmnt.executeQuery(query).next();
+		
 	}
 	
 	public void editInterviewerInfo() {
@@ -385,7 +384,20 @@ public class InterviewApp {
 	}
 	
 	public void removeInterviewer() {
-		
+		try {
+			System.out.print("Please enter the ID of the interviewer you want to remove: ");
+			int id = kbd.nextInt();
+				
+			String query = "delete from Group2.interviewer where ineterviewerid = ?";
+			ps = con.prepareStatement(query);
+			ps.setInt(1, id);  
+			ps.execute();
+				
+		}	
+		catch (Exception e){
+		      System.err.println("Got an exception!");
+		      System.err.println(e.getMessage());
+		}
 	}
 	
 	public void removeInterviewSchedule() {
@@ -394,7 +406,7 @@ public class InterviewApp {
 			int id = kbd.nextInt();
 				
 			String query = "delete from Group2.interviewsched where schedid = ?";
-			PreparedStatement ps = con.prepareStatement(query);
+			ps = con.prepareStatement(query);
 			ps.setInt(1, id);  
 			ps.execute();
 				
@@ -411,7 +423,7 @@ public class InterviewApp {
 			int id = kbd.nextInt();
 				
 			String query = "delete from applicant where applicantid = ?";
-			PreparedStatement ps = con.prepareStatement(query);
+			ps = con.prepareStatement(query);
 			ps.setInt(1, id);  
 			ps.execute();
 				
