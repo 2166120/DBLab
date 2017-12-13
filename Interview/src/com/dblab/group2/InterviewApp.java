@@ -454,7 +454,7 @@ public class InterviewApp {
 	public void editInterviewSchedule() {
 		String query;
 		try {
-			System.out.print("Please enter the interview ID you want to edit: ");
+			System.out.print("Please enter the interview schedule ID you want to edit: ");
 			int id = kbd.nextInt();
 			System.out.println("Which column would you like to edit?");
 			System.out.println("1. time");
