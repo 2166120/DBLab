@@ -316,11 +316,11 @@ public class InterviewApp {
 			
 			do {
 				System.out.print("Please enter the first name of the applicant: ");
-				String fName = kbd.nextLine();
+				String fName = kbd.next();
 				System.out.print("Please enter the last name of the applicant: ");
-				String lName = kbd.nextLine();
+				String lName = kbd.next();
 				System.out.print("Please enter the URL of the resume of the applicant: ");
-				String resu = kbd.nextLine();
+				String resu = kbd.next();
 				
 				
 				String query = " insert into Group2.applicant (firstname, lastname, resume)"
@@ -339,7 +339,7 @@ public class InterviewApp {
 			    	applicantID = res.getInt(1);
 			    }
 			    
-			    System.out.print("Please enter the schedule for the new Applicant : ");
+			    System.out.print("Please enter the schedule id for the new Applicant : ");
 			    //TODO verify
 			    int schedId = kbd.nextInt();
 			    
