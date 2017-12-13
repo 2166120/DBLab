@@ -452,7 +452,57 @@ public class InterviewApp {
 	}
 	
 	public void editInterviewSchedule() {
-		
+		String query;
+		try {
+			System.out.print("Please enter the interview ID you want to edit: ");
+			int id = kbd.nextInt();
+			System.out.println("Which column would you like to edit?");
+			System.out.println("1. time");
+			System.out.println("2. date");
+			System.out.println("3. applicant");
+			System.out.print("Enter choice: ");
+	    	int choice = kbd.nextInt();
+	    	
+	    	switch(choice) {
+	    	case 1:
+	    		String newTime;
+	    		System.out.print("Enter new time: ");
+	    		newTime = kbd.next();
+	    		query = "update Group2.interviewsched set time = ? where schedid = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, newTime);
+				ps.setString(2, String.valueOf(id));  
+				ps.executeUpdate();
+	    		System.out.println("Successfuly edited!");
+	    		break;
+	    	case 2:
+	    		String newDate;
+	    		System.out.print("Enter new date: ");
+	    		newDate = kbd.next();
+	    		query = "update Group2.interviewsched  set date = ? where schedid = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, newDate);
+				ps.setString(2, String.valueOf(id));  
+				ps.executeUpdate();
+	    		System.out.println("Successfuly edited!");
+	    		break;
+	    	case 3:
+	    		String newApplicant;
+	    		System.out.print("Enter new applicant ID: ");
+	    		newApplicant = kbd.next();
+	    		query = "update Group2.interviewsched  set applicantid = ? where schedid = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, newApplicant);
+				ps.setString(2, String.valueOf(id));  
+				ps.executeUpdate();
+	    		System.out.println("Successfuly edited!");
+	    		break;
+	    	}
+	    }
+		catch(Exception e) {
+	    	System.err.println("Got an exception!");
+	    	System.err.println(e.getMessage());
+	    }
 	}
 	
 	public void editApplicatInfo() {
