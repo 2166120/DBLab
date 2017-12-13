@@ -541,7 +541,7 @@ public class InterviewApp {
 			System.out.print("Please enter the ID of the interviewer you want to remove: ");
 			int id = kbd.nextInt();
 				
-			String query = "delete from Group2.interviewer where ineterviewerid = ?";
+			String query = "delete from Group2.interviewer where interviewerid = ?";
 			ps = con.prepareStatement(query);
 			ps.setInt(1, id);  
 			ps.execute();
