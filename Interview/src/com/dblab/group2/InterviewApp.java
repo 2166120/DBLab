@@ -275,17 +275,15 @@ public class InterviewApp {
 	
 	public void addNewApplicant() throws SQLException {
 		try {
-			
-			Scanner s = new Scanner(System.in);
 			String choice;
 			
 			do {
 				System.out.print("Please enter the first name of the applicant: ");
-				String fName = s.nextLine();
+				String fName = kbd.nextLine();
 				System.out.print("Please enter the last name of the applicant: ");
-				String lName = s.nextLine();
+				String lName = kbd.nextLine();
 				System.out.print("Please enter the URL of the resume of the applicant: ");
-				String resu = s.nextLine();
+				String resu = kbd.nextLine();
 				
 				
 				String query = " insert into Group2.applicant (firstname, lastname, resume)"
@@ -306,7 +304,7 @@ public class InterviewApp {
 			    
 			    System.out.print("Please enter the schedule for the new Applicant : ");
 			    //TODO verify
-			    int schedId = s.nextInt();
+			    int schedId = kbd.nextInt();
 			    
 			    query = "update Group2.interviewsched set applicantid = ? where schedid = ?";
 			    
@@ -317,7 +315,7 @@ public class InterviewApp {
 			    ps.execute();
 			    
 			    System.out.print("Would you like to add another applicant? <y/*> ");
-			    choice = s.next();
+			    choice = kbd.next();
 			}while(choice.equals("y") || choice.equals("Y"));
 		}
 		catch (Exception e){
@@ -360,11 +358,9 @@ public class InterviewApp {
 	}
 	
 	public void removeApplicantInfo() {
-		try {
-			Scanner s = new Scanner(System.in);
-			
+		try {		
 			System.out.print("Please enter the ID of the applicant you want to remove: ");
-			int id = s.nextInt();
+			int id = kbd.nextInt();
 				
 			String query = "delete from applicant where applicantid = ?";
 			PreparedStatement ps = con.prepareStatement(query);
