@@ -20,6 +20,8 @@ public class InterviewApp {
 	private Connection con;
 	private Statement sqlStmnt;
 	
+	private static InterviewApp app;
+	
 	public InterviewApp(){
 		
 		try {
@@ -46,14 +48,28 @@ public class InterviewApp {
 	}
 	
 	public static void main(String[] args) {
-		InterviewApp app = new InterviewApp();
+		app = new InterviewApp();
 		displayMenu();
+<<<<<<< HEAD
 		try {
 			
 			app.addNewApplicant();
 		} catch (SQLException e) {
 			// TODO handle all sql exceptions
 			e.printStackTrace();
+=======
+		
+		Scanner s = new Scanner(System.in);
+		
+		while(true){
+			try {
+				handleUserRequest();
+			} catch (SQLException e) {
+				System.out.println("Something went wrong\nPress enter to continue");
+				s.nextLine();
+				continue;
+			}
+>>>>>>> 82b0d43f9be84294eb05a69f6edf4a60e396d86e
 		}
 	}
 	
@@ -76,6 +92,73 @@ public class InterviewApp {
 		System.out.println("<12> Remove Applicant");
 		System.out.println("<0> Exit ");
 	}
+	
+	public static void handleUserRequest() throws SQLException{
+		Scanner s = new Scanner(System.in);
+		int choice = 0;
+		String buffer = "";
+		
+		while(true){
+			displayMenu();
+			System.out.print("Enter your choice : ");
+			buffer = s.next();
+			try{
+				choice = Integer.parseInt(buffer);
+				break;
+			}catch (Exception e) {
+				System.out.println("That's an invalid input!");
+				continue;
+			}
+		}
+		
+		switch(choice){
+			case 0:
+				System.out.println("Good bye :(");
+				app.disconnectFromDb();
+				System.exit(0);
+				break;
+			case 1:
+				app.showInterviewers();
+				break;
+			case 2:
+				//TODO add showscheds
+				break;
+			case 3:
+				app.showApplicants();
+				break;
+			case 4:
+				app.addNewInterviewer();
+				break;
+			case 5:
+				app.addNewInterviewSchedule();
+				break;
+			case 6:
+				//TODO addapplicant
+				break;
+			case 7:
+				app.editInterviewerInfo();
+				break;
+			case 8:
+				app.editInterviewSchedule();
+				break;
+			case 9:
+				app.editApplicatInfo();
+				break;
+			case 10:
+				app.removeInterviewer();
+				break;
+			case 11:
+				app.removeInterviewSchedule();
+				break;
+			case 12:
+				app.removeApplicantInfo();
+				break;
+			default:
+				System.out.println("That is not in the choices!");
+		}
+
+		
+	}
 
 	public void showInterviewers() throws SQLException {
 		
@@ -91,7 +174,7 @@ public class InterviewApp {
 		
 		System.out.print("Would you like to show an interviewer's schedule ? <y/*> ");
 		Scanner s = new Scanner(System.in);
-		String answer = s.next();
+		String answer = s.nextLine();
 		
 		while( answer.equals("y") || answer.equals("Y") ){
 			System.out.print("Enter the interviewer ID : ");
@@ -110,7 +193,7 @@ public class InterviewApp {
 			}
 			
 			System.out.print("Display another? <y/*> ");
-			answer = s.next();
+			answer = s.nextLine();
 		}
 		
 	}	
