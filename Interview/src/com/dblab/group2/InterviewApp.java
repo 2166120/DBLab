@@ -258,11 +258,11 @@ public class InterviewApp {
 	
 		do{
 			System.out.print("Please enter the first name of the interviewer: ");
-			firstname = kbd.nextLine();
+			firstname = kbd.next();
 			System.out.print("Please enter the last name of the interviewer: ");
-			lastname = kbd.nextLine();
+			lastname = kbd.next();
 			System.out.print("Please enter the availability of the interviewer: ");
-			avail = kbd.nextLine().charAt(0);
+			avail = kbd.next().charAt(0);
 			
 			String stmnt = "INSERT INTO Group2.interviewer(first_name,last_name,availability) values(?,?,?)";
 			
@@ -274,11 +274,8 @@ public class InterviewApp {
 					
 			System.out.println( firstname + " " + lastname + " was successfully added as an interviewer.");
 			System.out.print("Would you like to add another applicant? <y/*> ");
-			choice = kbd.nextLine().toLowerCase();
-			if((!choice.equals("y")) || (!choice.equals("n"))){
-				System.out.println("Enter y or n only");
-			}
-		}while(choice.equals("y") || (!choice.equals("y")) || (!choice.equals("n")));
+			choice = kbd.next().toLowerCase();
+		}while(choice.equals("y"));
 	}
 	
 	public void addNewInterviewSchedule() {
