@@ -72,11 +72,11 @@ public class InterviewApp {
 		
 		ResultSet res = sqlStmnt.executeQuery("SELECT * FROM Group2.interviewer");
 		System.out.printf("%5s	%-20s%-20s%-20s%n","ID","First Name", "Last Name", "Availability");
+		
 		while(res.next()){
 			System.out.printf("%5d	%-20s%-20s%-20s%n",res.getInt(1),res.getString(2),res.getString(3),
 					res.getString(4).equals("T")?"Available":"Not Available");
 		}
-		
 	}
 	
 	public void showInterviewSchedules() {
