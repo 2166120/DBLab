@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Scanner;
 
 public class InterviewApp {
 	
@@ -46,6 +47,7 @@ public class InterviewApp {
 		displayMenu();
 		try {
 			app.showInterviewers();
+			app.showApplicants();
 		} catch (SQLException e) {
 			// TODO handle all sql exceptions
 			e.printStackTrace();
@@ -84,18 +86,39 @@ public class InterviewApp {
 			
 		}
 		
-	}
-	
-	public void showInterviewSchedules() {
+		System.out.print("Would you like to show an interviewer's schedule ? <y/*> ");
+		Scanner s = new Scanner(System.in);
+		String answer = s.next();
 		
-	}
+		while( answer.equals("y") || answer.equals("Y") ){
+			System.out.print("Enter the interviewer ID : ");
+			int id = s.nextInt();
+			
+			res = sqlStmnt.executeQuery("SELECT `first_name`,`last_name`,`time`,`date` "
+					+ "FROM interviewer NATURAL JOIN panel NATURAL JOIN interviewsched WHERE interviewerid=" 
+					+ id);
+			
+			res.first();
+			System.out.println("The schedule for " + res.getString(1) + " " + res.getString(2) + " : ");
+			res.beforeFirst();
+			System.out.printf("%20s%20s%n","Time","Date");
+			while(res.next()){
+				System.out.printf("%20s%20s%n",res.getString(3),res.getDate(4));
+			}
+			
+			System.out.print("Display another? <y/*> ");
+			answer = s.next();
+		}
+		
+	}	
+
 	
 	public void showApplicants() throws SQLException {
 		ResultSet res = sqlStmnt.executeQuery("SELECT * FROM Group2.applicant");
 		System.out.printf("%5s	%-20s%-20s%-20s%n","ID","First Name", "Last Name", "Resume");
 		
 		while(res.next()){
-			System.out.printf("%5d%-20s%-20s%-20s%n",res.getInt(1),res.getString(2),res.getString(3),
+			System.out.printf("%5sy	d%-20s%-20s%-20s%n",res.getInt(1),res.getString(2),res.getString(3),
 					res.getString(4));
 		}
 	}
