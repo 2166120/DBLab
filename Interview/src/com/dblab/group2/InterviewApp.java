@@ -90,8 +90,14 @@ public class InterviewApp {
 		
 	}
 	
-	public void showApplicants() {
+	public void showApplicants() throws SQLException {
+		ResultSet res = sqlStmnt.executeQuery("SELECT * FROM Group2.applicant");
+		System.out.printf("%5s	%-20s%-20s%-20s%n","ID","First Name", "Last Name", "Resume");
 		
+		while(res.next()){
+			System.out.printf("%5d%-20s%-20s%-20s%n",res.getInt(1),res.getString(2),res.getString(3),
+					res.getString(4));
+		}
 	}
 	
 	public void addNewInterviewer() {
