@@ -236,11 +236,11 @@ public class InterviewApp {
 			System.out.print("Please enter the availability of the interviewer: ");
 			avail = kbd.nextLine().charAt(0);
 					
-			String stmnt = "INSERT INTO Group2.interviewer(first_name,last_name,availability)";
+			String stmnt = "INSERT INTO Group2.interviewer(first_name,last_name,availability) values(?,?,?)";
 			PreparedStatement ps = con.prepareStatement(stmnt);
-			ps.setString(2, firstname);
-			ps.setString(3, lastname);
-			ps.setString(4, String.valueOf(avail));
+			ps.setString(1, firstname);
+			ps.setString(2, lastname);
+			ps.setString(3, String.valueOf(avail));
 			ps.executeUpdate();
 					
 			System.out.println( firstname + " " + lastname + " was successfully added as an interviewer.");
@@ -336,8 +336,40 @@ public class InterviewApp {
 	    }
 	}
 	
-	public void addNewPanel() {
+	public void addNewPanel() throws SQLException {
 		
+		System.out.print("Enter the schedule ID : ");
+		Scanner s = new Scanner(System.in);
+		int schedID = s.nextInt();
+		String answer = "Y";
+		String query = "";
+		
+		while(answer.equalsIgnoreCase("Y")){
+			System.out.print("Enter Interviewer ID : ");
+			int id = s.nextInt();
+			
+			if(interviewerExits(id)){
+				query = "INSERT INTO `Group2`.`panel` (`schedid`, `interviewerid`) VALUES (?, ?)";
+				PreparedStatement ps = con.prepareStatement(query);
+				ps.setInt(1, schedID);
+				ps.setInt(2, id);
+				ps.execute();
+			}else{
+				System.out.println("can't find interviewer on database");
+			}
+			
+			System.out.print("Add another ? <y/*> ");
+			answer = s.next();
+			
+		}
+		
+	}
+	
+	public boolean interviewerExits(int id) throws SQLException{
+		
+		String query = "select * from interviewer where interviewerid = " + id;
+		
+		return sqlStmnt.executeQuery(query).next();
 	}
 	
 	public void editInterviewerInfo() {
