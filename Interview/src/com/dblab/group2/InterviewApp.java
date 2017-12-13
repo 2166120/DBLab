@@ -184,8 +184,11 @@ public class InterviewApp {
 			answer = s.nextLine();
 		}
 		
-	}	
-
+	}
+	
+	public void showInterviewSchedules() {
+		
+	}
 	
 	public void showApplicants() throws SQLException {
 		ResultSet res = sqlStmnt.executeQuery("SELECT * FROM Group2.applicant");
