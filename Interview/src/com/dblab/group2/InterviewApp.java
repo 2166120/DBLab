@@ -57,4 +57,47 @@ public class InterviewApp {
 		System.out.println("<0> Exit ");
 	}
 
+	public static void showInterviewers() {
+	
+	}
+	
+	public static void showInterviewSchedules() {
+		
+	}
+	
+	public static void showApplicants() {
+		
+	}
+	
+	public static void addNewInterviewer() {
+		
+	}
+	
+	public static void addNewInterviewSchedule() {
+		
+	}
+	
+	public static void editInterviewerInfo() {
+		
+	}
+	
+	public static void editInterviewSchedule() {
+		
+	}
+	
+	public static void editApplicatInfo() {
+		
+	}
+	
+	public static void removeInterviewer() {
+		
+	}
+	
+	public static void removeInterviewSchedule() {
+		
+	}
+	
+	public static void removeApplicantInfo() {
+		
+	}
 }
