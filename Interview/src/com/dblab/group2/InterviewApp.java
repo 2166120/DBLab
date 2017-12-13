@@ -2,7 +2,9 @@ package com.dblab.group2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class InterviewApp {
 	
@@ -12,11 +14,13 @@ public class InterviewApp {
 	private final String PASSWORD  = "mybirthday";
 	
 	private Connection con;
+	private Statement sqlStmnt;
 	
 	public InterviewApp(){
 		
 		try {
 			connectToDb();
+			sqlStmnt = con.createStatement();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -35,6 +39,13 @@ public class InterviewApp {
 	
 	public static void main(String[] args) {
 		InterviewApp app = new InterviewApp();
+		displayMenu();
+		try {
+			app.showInterviewers();
+		} catch (SQLException e) {
+			// TODO handle all sql exceptions
+			e.printStackTrace();
+		}
 	}
 	
 	public static void displayMenu() {
@@ -57,47 +68,54 @@ public class InterviewApp {
 		System.out.println("<0> Exit ");
 	}
 
-	public static void showInterviewers() {
-	
-	}
-	
-	public static void showInterviewSchedules() {
+	public void showInterviewers() throws SQLException {
+		
+		ResultSet res = sqlStmnt.executeQuery("SELECT * FROM Group2.interviewer");
+		System.out.printf("%5s	%-20s%-20s%-20s%n","ID","First Name", "Last Name", "Availability");
+		while(res.next()){
+			System.out.printf("%5d	%-20s%-20s%-20s%n",res.getInt(1),res.getString(2),res.getString(3),
+					res.getString(4).equals("T")?"Available":"Not Available");
+		}
 		
 	}
 	
-	public static void showApplicants() {
+	public void showInterviewSchedules() {
 		
 	}
 	
-	public static void addNewInterviewer() {
+	public void showApplicants() {
 		
 	}
 	
-	public static void addNewInterviewSchedule() {
+	public void addNewInterviewer() {
 		
 	}
 	
-	public static void editInterviewerInfo() {
+	public void addNewInterviewSchedule() {
 		
 	}
 	
-	public static void editInterviewSchedule() {
+	public void editInterviewerInfo() {
 		
 	}
 	
-	public static void editApplicatInfo() {
+	public void editInterviewSchedule() {
 		
 	}
 	
-	public static void removeInterviewer() {
+	public void editApplicatInfo() {
 		
 	}
 	
-	public static void removeInterviewSchedule() {
+	public void removeInterviewer() {
 		
 	}
 	
-	public static void removeApplicantInfo() {
+	public void removeInterviewSchedule() {
+		
+	}
+	
+	public void removeApplicantInfo() {
 		
 	}
 }
