@@ -57,47 +57,47 @@ public class InterviewApp {
 		System.out.println("<0> Exit ");
 	}
 
-	public static void showInterviewers() {
-	
-	}
-	
-	public static void showInterviewSchedules() {
+	public void showInterviewers() {
 		
 	}
 	
-	public static void showApplicants() {
+	public void showInterviewSchedules() {
 		
 	}
 	
-	public static void addNewInterviewer() {
+	public void showApplicants() {
 		
 	}
 	
-	public static void addNewInterviewSchedule() {
+	public void addNewInterviewer() {
 		
 	}
 	
-	public static void editInterviewerInfo() {
+	public void addNewInterviewSchedule() {
 		
 	}
 	
-	public static void editInterviewSchedule() {
+	public void editInterviewerInfo() {
 		
 	}
 	
-	public static void editApplicatInfo() {
+	public void editInterviewSchedule() {
 		
 	}
 	
-	public static void removeInterviewer() {
+	public void editApplicatInfo() {
 		
 	}
 	
-	public static void removeInterviewSchedule() {
+	public void removeInterviewer() {
 		
 	}
 	
-	public static void removeApplicantInfo() {
+	public void removeInterviewSchedule() {
+		
+	}
+	
+	public void removeApplicantInfo() {
 		
 	}
 }
