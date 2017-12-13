@@ -59,8 +59,9 @@ public class InterviewApp {
 			try {
 				handleUserRequest();
 			} catch (SQLException e) {
-				System.out.println("Something went wrong\nPress enter to continue");
-				s.nextLine();
+				System.err.println(e.getMessage());
+				System.err.println("Something went wrong\nPress enter to continue");
+				app.pauseStream();
 				continue;
 			}
 		}
