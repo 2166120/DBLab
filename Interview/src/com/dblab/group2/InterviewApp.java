@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.io.IOException;
 import java.sql.*;
 
 
@@ -387,7 +388,31 @@ public class InterviewApp {
 		
 	}
 	
-	public void addScore() {
+	public void addScore() throws SQLException{
+		
+		Scanner s = new Scanner(System.in);
+		System.out.print("Please enter the schedule ID : ");
+		int schedID = s.nextInt();
+		System.out.print("Please enter the interviewer ID : ");
+		int interviewerID = s.nextInt();
+		System.out.print("Please enter the score out of 10 : ");
+		int score = s.nextInt();
+		
+		String query = "UPDATE `Group2`.`panel` SET `score`=? WHERE `schedid`=? and`interviewerid`=?";
+		ps = con.prepareStatement(query);
+		ps.setInt(1, score);
+		ps.setInt(2, schedID);
+		ps.setInt(3, interviewerID);
+		
+		ps.execute();
+		
+		System.out.print("Successfully Updated score! Press enter to continue");
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
