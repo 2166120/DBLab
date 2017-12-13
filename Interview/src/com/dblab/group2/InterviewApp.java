@@ -409,7 +409,58 @@ public class InterviewApp {
 	}
 	
 	public void editApplicatInfo() {
-		
+		String query;
+	    try {
+	    	System.out.print("Please enter the ID of the applicant you want to edit: ");
+	    	int id = kbd.nextInt();
+	    	System.out.println("Which column would you like to edit?");
+	    	System.out.println("1. first name");
+	    	System.out.println("2. last name");
+	    	System.out.println("3. resume"); 	
+	    	System.out.print("Enter choice: ");
+	    	int choice = kbd.nextInt();
+	    	
+	    	switch(choice) {
+	    	case 1:
+	    		String newFirstName;
+	    		System.out.print("Enter new first name: ");
+	    		newFirstName = kbd.next();
+	    		query = "update Group2.applicant  set firstname = ? where applicantid = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, newFirstName);
+				ps.setString(2, String.valueOf(id));  
+				ps.executeUpdate();
+	    		System.out.println("Successfuly edited!");
+	    		break;
+	    	case 2:
+	    		String newLastName;
+	    		System.out.print("Enter new last name: ");
+	    		newLastName = kbd.next();
+	    		query = "update Group2.applicant  set lastname = ? where applicantid = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, newLastName);
+				ps.setString(2, String.valueOf(id));  
+				ps.executeUpdate();
+	    		System.out.println("Successfuly edited!");
+	    		break;
+	    	case 3:
+	    		String newResume;
+	    		System.out.print("Enter new resume link: ");
+	    		newResume = kbd.next();
+	    		query = "update Group2.applicant  set resume = ? where applicantid = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, newResume);
+				ps.setString(2, String.valueOf(id));  
+				ps.executeUpdate();
+	    		System.out.println("Successfuly edited!");
+	    		break;
+	    	}
+	    }
+	    catch(Exception e) {
+	    	System.err.println("Got an exception!");
+	    	System.err.println(e.getMessage());
+	    }
+	}
 	}
 	
 	public void addScore() throws SQLException{
