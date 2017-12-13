@@ -123,7 +123,7 @@ public class InterviewApp {
 				app.addNewInterviewSchedule();
 				break;
 			case 6:
-				//TODO addapplicant
+				app.addNewApplicant();
 				break;
 			case 7:
 				app.editInterviewerInfo();
@@ -228,15 +228,33 @@ public class InterviewApp {
 				String query = " insert into Group2.applicant (firstname, lastname, resume)"
 				        + " values (?, ?, ?)";
 				
-				PreparedStatement ps = con.prepareStatement(query);
+				PreparedStatement ps = con.prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
 				ps.setString (1, fName);
 			    ps.setString (2, lName);
 			    ps.setString (3, resu);
 			    
 			    ps.execute();
 			    
+			    ResultSet res = ps.getGeneratedKeys();
+			    int applicantID = 0;
+			    if(res.next()){
+			    	applicantID = res.getInt(1);
+			    }
+			    
+			    System.out.print("Please enter the schedule for the new Applicant : ");
+			    //TODO verify
+			    int schedId = s.nextInt();
+			    
+			    query = "update Group2.interviewsched set applicantid = ? where schedid = ?";
+			    
+			    ps = con.prepareStatement(query);
+			    ps.setInt(1, applicantID);
+			    ps.setInt(2, schedId);
+			    
+			    ps.execute();
+			    
 			    System.out.print("Would you like to add another applicant? <y/*> ");
-			    choice = s.nextLine();
+			    choice = s.next();
 			}while(choice.equals("y") || choice.equals("Y"));
 		}
 		catch (Exception e){
