@@ -225,7 +225,7 @@ public class InterviewApp {
 				String resu = s.nextLine();
 				
 				
-				String query = " insert into applicant (firstname, lastname, resume)"
+				String query = " insert into Group2.applicant (firstname, lastname, resume)"
 				        + " values (?, ?, ?)";
 				
 				PreparedStatement ps = con.prepareStatement(query);
@@ -239,8 +239,7 @@ public class InterviewApp {
 			    choice = s.nextLine();
 			}while(choice.equals("y") || choice.equals("Y"));
 		}
-		catch (Exception e)
-	    {
+		catch (Exception e){
 	      System.err.println("Got an exception!");
 	      System.err.println(e.getMessage());
 	    }
@@ -267,6 +266,21 @@ public class InterviewApp {
 	}
 	
 	public void removeApplicantInfo() {
-		
+		try {
+			Scanner s = new Scanner(System.in);
+			
+			System.out.print("Please enter the ID of the applicant you want to remove: ");
+			int id = s.nextInt();
+				
+			String query = "delete from applicant where applicantid = ?";
+			PreparedStatement ps = con.prepareStatement(query);
+			ps.setInt(1, id);  
+			ps.execute();
+				
+		}	
+		catch (Exception e){
+		      System.err.println("Got an exception!");
+		      System.err.println(e.getMessage());
+		}
 	}
 }
