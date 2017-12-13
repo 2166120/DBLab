@@ -378,7 +378,20 @@ public class InterviewApp {
 	}
 	
 	public void removeInterviewer() {
-		
+		try {
+			System.out.print("Please enter the ID of the interviewer you want to remove: ");
+			int id = kbd.nextInt();
+				
+			String query = "delete from Group2.interviewer where ineterviewerid = ?";
+			ps = con.prepareStatement(query);
+			ps.setInt(1, id);  
+			ps.execute();
+				
+		}	
+		catch (Exception e){
+		      System.err.println("Got an exception!");
+		      System.err.println(e.getMessage());
+		}
 	}
 	
 	public void removeInterviewSchedule() {
@@ -387,7 +400,7 @@ public class InterviewApp {
 			int id = kbd.nextInt();
 				
 			String query = "delete from Group2.interviewsched where schedid = ?";
-			PreparedStatement ps = con.prepareStatement(query);
+			ps = con.prepareStatement(query);
 			ps.setInt(1, id);  
 			ps.execute();
 				
@@ -404,7 +417,7 @@ public class InterviewApp {
 			int id = kbd.nextInt();
 				
 			String query = "delete from applicant where applicantid = ?";
-			PreparedStatement ps = con.prepareStatement(query);
+			ps = con.prepareStatement(query);
 			ps.setInt(1, id);  
 			ps.execute();
 				
