@@ -118,7 +118,7 @@ public class InterviewApp {
 		System.out.printf("%5s	%-20s%-20s%-20s%n","ID","First Name", "Last Name", "Resume");
 		
 		while(res.next()){
-			System.out.printf("%5sy	d%-20s%-20s%-20s%n",res.getInt(1),res.getString(2),res.getString(3),
+			System.out.printf("%5d	%-20s%-20s%-20s%n",res.getInt(1),res.getString(2),res.getString(3),
 					res.getString(4));
 		}
 	}
