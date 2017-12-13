@@ -80,10 +80,11 @@ public class InterviewApp {
 		System.out.println("<9> Edit Interviewer Info");
 		System.out.println("<10> Edit Interview Schedule");
 		System.out.println("<11> Edit Applicant Info");
+		System.out.println("<12> Add Score");
 		System.out.println("------Delete-----");
-		System.out.println("<12> Remove Interviewer");
-		System.out.println("<13> Remove Interview Schedule");
-		System.out.println("<14> Remove Applicant");
+		System.out.println("<13> Remove Interviewer");
+		System.out.println("<14> Remove Interview Schedule");
+		System.out.println("<15> Remove Applicant");
 		System.out.println("<0> Exit ");
 	}
 	
@@ -145,12 +146,15 @@ public class InterviewApp {
 				app.editApplicatInfo();
 				break;
 			case 12:
-				app.removeInterviewer();
+				app.addScore();
 				break;
 			case 13:
-				app.removeInterviewSchedule();
+				app.removeInterviewer();
 				break;
 			case 14:
+				app.removeInterviewSchedule();
+				break;
+			case 15:
 				app.removeApplicantInfo();
 				break;
 			default:
@@ -365,7 +369,7 @@ public class InterviewApp {
 		}while(choice.equals("y") || (!choice.equals("y")) || (!choice.equals("n")));
 	}
 	
-	public void editInterviewerInfo() {
+	public void editInterviewerInfo() throws SQLException{
 		
 	}
 	
@@ -374,6 +378,10 @@ public class InterviewApp {
 	}
 	
 	public void editApplicatInfo() {
+		
+	}
+	
+	public void addScore() {
 		
 	}
 	
