@@ -401,7 +401,57 @@ public class InterviewApp {
 	}
 	
 	public void editInterviewerInfo() throws SQLException{
-		
+		String query = null;
+		try {
+	    	System.out.print("Please enter the ID of the interviewer you want to edit: ");
+	    	int id = kbd.nextInt();
+	    	System.out.println("Which column would you like to edit?");
+	    	System.out.println("1. first name");
+	    	System.out.println("2. last name");
+	    	System.out.println("3. availability"); 	
+	    	System.out.print("Enter choice: ");
+	    	int choice = kbd.nextInt();
+	    	
+	    	switch(choice) {
+	    	case 1:
+	    		String newFirstName;
+	    		System.out.print("Enter new first name: ");
+	    		newFirstName = kbd.next();
+	    		query = "update Group2.interviewer  set first_name = ? where interviewerid = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, newFirstName);
+				ps.setString(2, String.valueOf(id));  
+				ps.executeUpdate();
+	    		System.out.println("Successfuly edited!");
+	    		break;
+	    	case 2:
+	    		String newLastName;
+	    		System.out.print("Enter new last name: ");
+	    		newLastName = kbd.next();
+	    		query = "update Group2.interviewer  set first_name = ? where interviewerid = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, newLastName);
+				ps.setString(2, String.valueOf(id));  
+				ps.executeUpdate();
+	    		System.out.println("Successfuly edited!");
+	    		break;
+	    	case 3:
+	    		char avail;
+	    		System.out.print("Enter availabilty status: ");
+	    		avail = kbd.next().charAt(0);
+	    		query = "update Group2.interviewer  set availability = ? where interviewerid = ?";
+				ps = con.prepareStatement(query);
+				ps.setString(1, String.valueOf(avail));
+				ps.setString(2, String.valueOf(id));  
+				ps.executeUpdate();
+	    		System.out.println("Successfuly edited!");
+	    		break;
+	    	}
+	    }
+	    catch(Exception e) {
+	    	System.err.println("Got an exception!");
+	    	System.err.println(e.getMessage());
+	    }
 	}
 	
 	public void editInterviewSchedule() {
@@ -461,7 +511,7 @@ public class InterviewApp {
 	    	System.err.println(e.getMessage());
 	    }
 	}
-	}
+
 	
 	public void addScore() throws SQLException{
 		
