@@ -164,7 +164,7 @@ public class InterviewApp {
 		
 		System.out.print("Would you like to show an interviewer's schedule ? <y/*> ");
 		Scanner s = new Scanner(System.in);
-		String answer = s.nextLine();
+		String answer = s.next();
 		
 		while( answer.equals("y") || answer.equals("Y") ){
 			System.out.print("Enter the interviewer ID : ");
@@ -183,7 +183,7 @@ public class InterviewApp {
 			}
 			
 			System.out.print("Display another? <y/*> ");
-			answer = s.nextLine();
+			answer = s.next();
 		}
 		
 	}
