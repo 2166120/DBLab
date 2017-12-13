@@ -113,7 +113,7 @@ public class InterviewApp {
 				app.showInterviewers();
 				break;
 			case 2:
-				//TODO add showscheds
+				app.showInterviewSchedules()
 				break;
 			case 3:
 				app.showApplicants();
@@ -191,7 +191,13 @@ public class InterviewApp {
 	}
 	
 	public void showInterviewSchedules() {
+		ResultSet res = sqlStmnt.executeQuery("SELECT * FROM Group2.interviewsched");
+		System.out.printf("%5s	%-20s%-20s%-20s%n","Sched ID","Time", "Date", "Applicant ID");
 		
+		while(res.next()){
+			System.out.printf("%1d	%-25s%-25s%-28d%n",res.getInt(1),res.getString(2),res.getString(3),
+					res.getInt(4));
+		}
 	}
 	
 	public void showApplicants() throws SQLException {
