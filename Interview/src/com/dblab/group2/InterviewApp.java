@@ -234,6 +234,35 @@ public class InterviewApp {
 	}
 	
 	public void addNewInterviewSchedule() {
+		try {
+			Scanner s = new Scanner(System.in);
+			String choice;
+			
+			do {
+				System.out.print("Please enter the time of interview (ex: 8:00-9:00): ");
+				String time = s.nextLine();
+				System.out.print("Please enter the date of interview (ex: 2017-12-13): ");
+				String date = s.nextLine();
+				
+				
+				String query = " insert into Group2.interviewsched (time,date)"
+				        + " values (?, ?)";
+				
+				PreparedStatement ps = con.prepareStatement(query);
+			    ps.setString (1, time);
+			    ps.setString (2, date);
+			    
+			    ps.execute();
+			    
+			    System.out.print("Would you like to add another schedule? <y/*> ");
+			    choice = s.nextLine();
+			}while(choice.equals("y") || choice.equals("Y"));
+		}
+		catch (Exception e){
+	      System.err.println("Got an exception!");
+	      System.err.println(e.getMessage());
+	    }
+		
 		
 	}
 	
