@@ -1,11 +1,14 @@
 package com.dblab.group2;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
+import java.sql.*;
+
 
 public class InterviewApp {
 	
@@ -46,8 +49,8 @@ public class InterviewApp {
 		InterviewApp app = new InterviewApp();
 		displayMenu();
 		try {
-			app.showInterviewers();
-			app.showApplicants();
+			
+			app.addNewApplicant();
 		} catch (SQLException e) {
 			// TODO handle all sql exceptions
 			e.printStackTrace();
@@ -129,6 +132,42 @@ public class InterviewApp {
 	
 	public void addNewInterviewSchedule() {
 		
+	}
+	
+	public void addNewApplicant() throws SQLException {
+		try {
+			
+			Scanner s = new Scanner(System.in);
+			String choice;
+			
+			do {
+				System.out.print("Please enter the first name of the applicant: ");
+				String fName = s.nextLine();
+				System.out.print("Please enter the last name of the applicant: ");
+				String lName = s.nextLine();
+				System.out.print("Please enter the URL of the resume of the applicant: ");
+				String resu = s.nextLine();
+				
+				
+				String query = " insert into applicant (firstname, lastname, resume)"
+				        + " values (?, ?, ?)";
+				
+				PreparedStatement ps = con.prepareStatement(query);
+				ps.setString (1, fName);
+			    ps.setString (2, lName);
+			    ps.setString (3, resu);
+			    
+			    ps.execute();
+			    
+			    System.out.print("Would you like to add another applicant? <y/*> ");
+			    choice = s.nextLine();
+			}while(choice.equals("y") || choice.equals("Y"));
+		}
+		catch (Exception e)
+	    {
+	      System.err.println("Got an exception!");
+	      System.err.println(e.getMessage());
+	    }
 	}
 	
 	public void editInterviewerInfo() {
