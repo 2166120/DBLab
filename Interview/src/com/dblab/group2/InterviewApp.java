@@ -210,6 +210,9 @@ public class InterviewApp {
 			System.out.printf("%1d	%-25s%-25s%-28d%n",res.getInt(1),res.getString(2),res.getString(3),
 					res.getInt(4));
 		}
+		
+		System.out.println("Press enter to continue");
+		pauseStream();
 	}
 	
 	public void showApplicants() throws SQLException {
@@ -220,6 +223,8 @@ public class InterviewApp {
 			System.out.printf("%5d	%-20s%-20s%-20s%n",res.getInt(1),res.getString(2),res.getString(3),
 					res.getString(4));
 		}
+		System.out.println("Press enter to continue");
+		pauseStream();
 	}
 	
 	public void showPanel() throws SQLException {
@@ -239,6 +244,9 @@ public class InterviewApp {
 		while (res.next()) {
 			System.out.printf("%15s  %-20s%-20s%n", res.getInt(1), res.getString(2), res.getString(3));
 		}
+		System.out.println("Press enter to continue");
+		pauseStream();
+		
 	}
 	
 	public void addNewInterviewer() throws SQLException{
@@ -422,12 +430,7 @@ public class InterviewApp {
 		ps.execute();
 		
 		System.out.print("Successfully Updated score! Press enter to continue");
-		try {
-			System.in.read();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		
 	}
 	
@@ -479,6 +482,14 @@ public class InterviewApp {
 		catch (Exception e){
 		      System.err.println("Got an exception!");
 		      System.err.println(e.getMessage());
+		}
+	}
+	
+	private void pauseStream(){
+		try {
+			System.in.read();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 }
