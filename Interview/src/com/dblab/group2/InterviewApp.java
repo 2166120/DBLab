@@ -50,15 +50,6 @@ public class InterviewApp {
 	public static void main(String[] args) {
 		app = new InterviewApp();
 		displayMenu();
-<<<<<<< HEAD
-		try {
-			
-			app.addNewApplicant();
-		} catch (SQLException e) {
-			// TODO handle all sql exceptions
-			e.printStackTrace();
-=======
-		
 		Scanner s = new Scanner(System.in);
 		
 		while(true){
@@ -69,7 +60,6 @@ public class InterviewApp {
 				s.nextLine();
 				continue;
 			}
->>>>>>> 82b0d43f9be84294eb05a69f6edf4a60e396d86e
 		}
 	}
 	
