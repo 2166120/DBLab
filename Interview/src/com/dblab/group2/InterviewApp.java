@@ -173,12 +173,11 @@ public class InterviewApp {
 		}
 		
 		System.out.print("Would you like to show an interviewer's schedule ? <y/*> ");
-		Scanner s = new Scanner(System.in);
-		String answer = s.next();
+		String answer = kbd.next();
 		
 		while( answer.equals("y") || answer.equals("Y") ){
 			System.out.print("Enter the interviewer ID : ");
-			int id = s.nextInt();
+			int id = kbd.nextInt();
 			
 			res = sqlStmnt.executeQuery("SELECT `first_name`,`last_name`,`time`,`date` "
 					+ "FROM interviewer NATURAL JOIN panel NATURAL JOIN interviewsched WHERE interviewerid=" 
@@ -193,7 +192,7 @@ public class InterviewApp {
 			}
 			
 			System.out.print("Display another? <y/*> ");
-			answer = s.next();
+			answer = kbd.next();
 		}
 		
 	}
@@ -236,11 +235,11 @@ public class InterviewApp {
 			System.out.print("Please enter the availability of the interviewer: ");
 			avail = kbd.nextLine().charAt(0);
 					
-			String stmnt = "INSERT INTO Group2.interviewer(first_name,last_name,availability)";
+			String stmnt = "INSERT INTO Group2.interviewer(first_name,last_name,availability)" + "values(?,?,?)";
 			PreparedStatement ps = con.prepareStatement(stmnt);
-			ps.setString(2, firstname);
-			ps.setString(3, lastname);
-			ps.setString(4, String.valueOf(avail));
+			ps.setString(1, firstname);
+			ps.setString(2, lastname);
+			ps.setString(3, String.valueOf(avail));
 			ps.executeUpdate();
 					
 			System.out.println( firstname + " " + lastname + " was successfully added as an interviewer.");
@@ -254,14 +253,13 @@ public class InterviewApp {
 	
 	public void addNewInterviewSchedule() {
 		try {
-			Scanner s = new Scanner(System.in);
 			String choice;
 			
 			do {
 				System.out.print("Please enter the time of interview (ex: 8:00-9:00): ");
-				String time = s.nextLine();
+				String time = kbd.nextLine();
 				System.out.print("Please enter the date of interview (ex: 2017-12-13): ");
-				String date = s.nextLine();
+				String date = kbd.nextLine();
 				
 				
 				String query = " insert into Group2.interviewsched (time,date)"
@@ -274,7 +272,7 @@ public class InterviewApp {
 			    ps.execute();
 			    
 			    System.out.print("Would you like to add another schedule? <y/*> ");
-			    choice = s.nextLine();
+			    choice = kbd.nextLine();
 			}while(choice.equals("y") || choice.equals("Y"));
 		}
 		catch (Exception e){
@@ -336,8 +334,35 @@ public class InterviewApp {
 	    }
 	}
 	
-	public void addNewPanel() {
+	public void addNewPanel() throws SQLException {
+		int sched;
+		int interviewer;
+		int rating;
+		String choice; 
 		
+		do{
+			System.out.print("Please enter the sched id of the interview: ");
+			sched = kbd.nextInt();
+			System.out.print("Please enter the interview id of the interviewer: ");
+			interviewer = kbd.nextInt();
+			System.out.print("Please enter the score from the interviewer: ");
+			rating = kbd.nextInt();
+			
+					
+			String stmnt = "INSERT INTO Group2.panel(schedid, interviewid, score)" + "values (?, ?, ?)";
+			PreparedStatement ps = con.prepareStatement(stmnt);
+			ps.setString(1, String.valueOf(sched));
+			ps.setString(2, String.valueOf(interviewer));
+			ps.setString(3, String.valueOf(rating));
+			ps.executeUpdate();
+					
+			System.out.println( interviewer + " was successfully added as a panel member.");
+			System.out.print("Would you like to add another panel member? <y/*> ");
+			choice = kbd.nextLine().toLowerCase();
+			if((!choice.equals("y")) || (!choice.equals("n"))){
+				System.out.println("Enter y or n only");
+			}
+		}while(choice.equals("y") || (!choice.equals("y")) || (!choice.equals("n")));
 	}
 	
 	public void editInterviewerInfo() {
